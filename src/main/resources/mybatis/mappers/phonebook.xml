@@ -72,8 +72,8 @@
 		<![CDATA[
 			update phonedb
 			set name = #{name},
-  		    hp = #{hp},
-   		    company = #{company}
+  		        hp = #{hp},
+   		        company = #{company}
 			where person_id = #{personId}
 		]]>
 	</update>
