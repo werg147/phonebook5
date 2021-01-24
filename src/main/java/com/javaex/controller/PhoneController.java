@@ -103,6 +103,20 @@ public class PhoneController {
 		return "modifyForm";
 	}
 
+
+	// 수정 -> modify @ModelAttribute
+	@RequestMapping(value = "/modify", method = { RequestMethod.GET, RequestMethod.POST })
+	public String modify(@ModelAttribute PersonVo personVo) { // @ModelAttribute생략가능
+		System.out.println("modify");
+
+		// dao -> 수정
+		phoneDao.personUpdate(personVo);
+
+		return "redirect:/phone/list";
+	}
+
+	/*
+	 * 
 	// http://localhost:8088/phonebook3/phone/modifyForm?name=리다이렉트&hp=010-0000-2222&company=02-0000-2222
 	// 수정 -> modify @RequestParam
 	@RequestMapping(value = "/modify2", method = { RequestMethod.GET, RequestMethod.POST })
@@ -119,22 +133,8 @@ public class PhoneController {
 
 		return "redirect:/phone/list";
 	}
-
-	// 수정 -> modify @ModelAttribute
-	@RequestMapping(value = "/modify", method = { RequestMethod.GET, RequestMethod.POST })
-	public String modify(@ModelAttribute PersonVo personVo) { // @ModelAttribute생략가능
-
-		System.out.println("modify");
-
-		System.out.println(personVo.toString());
-
-		// dao -> 수정
-		phoneDao.personUpdate(personVo);
-
-		return "redirect:/phone/list";
-	}
-
-	/*
+	 * 
+	 * 
 	 * // 삭제 ->dlelte
 	 * 
 	 * @RequestMapping(value = "/delete", method = { RequestMethod.GET,

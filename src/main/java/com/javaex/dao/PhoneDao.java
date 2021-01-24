@@ -50,6 +50,13 @@ public class PhoneDao {
 		return personVo;
 	}
 	
+	//전화번호 수정
+	public void personUpdate(PersonVo personVo) {
+		System.out.println("dao update: " + personVo);
+		
+		sqlSession.update("phonebook.update", personVo);
+	}
+	
 
 	
 }
