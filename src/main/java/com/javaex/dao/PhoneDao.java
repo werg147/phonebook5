@@ -1,6 +1,8 @@
 package com.javaex.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,13 +52,48 @@ public class PhoneDao {
 		return personVo;
 	}
 	
-	//전화번호 수정
-	public void personUpdate(PersonVo personVo) {
-		System.out.println("dao update: " + personVo);
+	//1명 데이터 가져오기2
+	public Map<String, Object> getPerson2(int personId) {
+		System.out.println("dao getPerson2: " + personId);
+			
+		Map<String, Object> personMap = sqlSession.selectOne("phonebook.selectOne2", personId);
+		System.out.println(personMap.toString());	
 		
-		sqlSession.update("phonebook.update", personVo);
+		String name = (String)personMap.get("name");
+		System.out.println(name);
+		
+		
+		
+		return personMap;
 	}
 	
+	//전화번호 수정
+	public int personUpdate(PersonVo personVo) {
+		System.out.println("dao update: " + personVo);
+		
+		//int count = sqlSession.update("phonebook.update", personVo);
+		//return count;
+		
+		return sqlSession.update("phonebook.update", personVo);
+	}
+	
+	//수정2
+	public int personUpdate2(int personId, String name, String hp, String company) {
+		System.out.println("dao update2: " + personId + "," + name + "," + hp + "," + company);
+		
+		//한번만 쓰고 말 것 같아서 vo 대신 -> map
+		//PersonVo personVo = new PersonVo(personId, name, hp, company);
+		Map<String, Object> personMap = new HashMap<String, Object>();
+		personMap.put("personId", personId);
+		personMap.put("name", name);
+		personMap.put("hp", hp);
+		personMap.put("company", company);
+		
+		System.out.println(personMap.toString());
+		
+		return sqlSession.update("phonebook.update2", personMap);
+		
+	}
 
 	
 }

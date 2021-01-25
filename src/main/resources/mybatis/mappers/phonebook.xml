@@ -25,7 +25,7 @@
 	</select>
 
 	<!-- 전체 리스트 가져오기 -->
-	<select id="selectList" resultType="com.javaex.vo.PersonVo">
+	<select id="selectList" resultType="PersonVo">
 		<![CDATA[
 			select person_id as personId,
 	               name,
@@ -56,7 +56,7 @@
 	</delete>
 	
 	<!-- 전화번호 1개 가져오기 -->
-	<select id="selectOne" parameterType="int" resultType="com.javaex.vo.PersonVo">
+	<select id="selectOne" parameterType="int" resultType="PersonVo">
 		<![CDATA[
 			select person_id personId,
    			       name,
@@ -67,8 +67,31 @@
 		]]>
 	</select>
 	
+	<!-- 전화번호 1개 가져오기2 -->
+	<select id="selectOne2" parameterType="int" resultType="map">
+		<![CDATA[
+			select person_id personId,
+   			       name "name",
+     			   hp,
+    			   company
+			from phonedb
+			where person_id = #{personId}
+		]]>
+	</select>
+	
 	<!-- 전화번호 수정하기 -->
 	<update id="update" parameterType="com.javaex.vo.PersonVo">
+		<![CDATA[
+			update phonedb
+			set name = #{name},
+  		        hp = #{hp},
+   		        company = #{company}
+			where person_id = #{personId}
+		]]>
+	</update>
+	
+	<!-- 전화번호 수정하기2 -->
+	<update id="update2" parameterType="map">
 		<![CDATA[
 			update phonedb
 			set name = #{name},
